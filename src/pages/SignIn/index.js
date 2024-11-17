@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react";
-import { Platform } from "react-native";
+import { Platform, ActivityIndicator } from "react-native";
+
 import {Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText, Link, LinkText} from './styles'
 
 import { useNavigation } from "@react-navigation/native"; 
@@ -46,9 +47,15 @@ export default function SignIn(){
                 </AreaInput>
 
                 <SubmitButton activeOpacity={0.7} onPress={handleLogin}> 
-                    <SubmitText>
-                        Acessar
-                    </SubmitText>
+                    {
+                        loadingAuth ? (
+                            <ActivityIndicator size={20} color='#fff' />
+                        ) : (
+                            <SubmitText> Acessar </SubmitText>
+                        )
+
+                    }
+                    
                 </SubmitButton>
 
                 <Link onPress={() => navigation.navigate('SignUp') }>

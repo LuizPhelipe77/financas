@@ -1,10 +1,57 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, Button } from "react-native";
+
+import { AuthContext } from "../../contexts/auth";
+
+import Header from '../../components/Header'
+import { Backgrooud, ListBalance } from './styles'
+
+import api from '../../services/api'
+import { format } from "date-fns"; 
+
+import { useIsFocused } from "@react-navigation/native";
+import BalanceItem from "../../components/BalanceItem";
 
 export default function Home(){
+    const isFocused = useIsFocused();
+    const [listBalance, setListBalance ] = useState([]);
+
+    const [dateMoviment, setDateMoviment] = useState(new Date())
+
+    useEffect(() => {
+        let isActive = true;
+
+        async function getMoviment(){
+            let dateFormated = format(dateMoviment, 'dd/mm/yyyy')
+            
+            const balance = await api.get('/balance', {
+                params:{
+                    date:dateFormated
+                }
+            })
+            if(isActive){
+                setListBalance(balance.data)
+            }
+        }
+
+        getMoviment();
+
+        return () => isActive = false;
+
+    }, [isFocused])
+
     return(
-        <View>
-            <Text>Tela Home</Text>
-        </View>
+        <Backgrooud>
+            <Header title="Minhas movimentacoes" />
+
+        <ListBalance
+            data={listBalance}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={ item => item.tag }
+            renderItem={ ({ item }) => ( <BalanceItem data={item} /> )}
+        />
+
+        </Backgrooud>
     )
 }
