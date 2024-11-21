@@ -9,12 +9,12 @@ export default function BalanceItem({ data }){
             label: 'saldo atual',
             color: '3b3dbf'
            }
-        } else if(data.tag === 'receita'){
+        }else if(data.tag === 'receita'){
             return{
                 label: 'entradas de hoje',
                 color: '00b94a'
             }
-        } else{
+        }else{
             return{
                 label: 'saidas de hoje',
                 color: 'ef463a'
@@ -24,7 +24,7 @@ export default function BalanceItem({ data }){
     }, [data])
     return(
         <Container bg={labelName.color}>
-            <Label>{labelName.label} </Label>
+            <Label>{labelName.label}</Label>
             <Balance>R$ {data.saldo}</Balance>
         </Container>
     )

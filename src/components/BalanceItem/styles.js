@@ -6,9 +6,8 @@ export const Container = styled.View`
     margin-right: 14px;
     border-radius: 4px;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 300px;
-    padding-left: 14px;
 `;
 
 export const Label = styled.Text`
