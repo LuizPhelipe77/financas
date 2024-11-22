@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.view`
+export const Container = styled.View`
     background-color: #f0f3ff;
     border-radius: 4px;
     margin-left: 10px;
