@@ -13,7 +13,7 @@ import { useIsFocused } from "@react-navigation/native";
 import BalanceItem from "../../components/BalanceItem";
 import HistoricoList from '../../components/HistoricoList';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@expo/vector-icons/MaterialIcons';
 
 export default function Home(){
     const isFocused = useIsFocused();
@@ -49,15 +49,17 @@ export default function Home(){
 
         return () => isActive = false;
 
-    }, [isFocused])
+    }, [isFocused, dateMoviment])
 
     async function handleDelete(id){
         try{
-            await api.delete('receives/delete', {
+            await api.delete('/receives/delete', {
                 params:{
                     item_id: id
                 }
             })
+
+            setDateMoviment(new Date())
         }catch(err){
             console.log(err);
         }
